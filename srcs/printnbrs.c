@@ -6,7 +6,7 @@
 /*   By: gozon <gozon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 06:37:04 by gozon             #+#    #+#             */
-/*   Updated: 2024/05/31 09:01:45 by gozon            ###   ########.fr       */
+/*   Updated: 2024/05/31 09:41:08 by gozon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_printnbr(int nbr, int size, char *base)
 
 int	ft_printul(unsigned long int n, int size, char *base)
 {
+	int	count;
+
 	if (n < (unsigned long) size)
 	{
 		ft_putchar_fd(base[n], 1);
@@ -32,7 +34,9 @@ int	ft_printul(unsigned long int n, int size, char *base)
 	}
 	else
 	{
-		return (1 + ft_printul(base[n % size], size, base));
+		count = (1 + ft_printul(n / (unsigned)size, size, base));
+		ft_putchar_fd(base[n % (unsigned)size], 1);
+		return (count);
 	}
 }
 

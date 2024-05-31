@@ -6,7 +6,7 @@
 /*   By: gozon <gozon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 06:37:55 by gozon             #+#    #+#             */
-/*   Updated: 2024/05/31 06:37:56 by gozon            ###   ########.fr       */
+/*   Updated: 2024/05/31 10:31:55 by gozon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ int	ft_printchar(int c)
 
 int	ft_printstring(char *s)
 {
-	while (*s)
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		ft_putchar_fd(*s, 1);
-		s++;
+		ft_putchar_fd(s[i], 1);
+		i++;
 	}
 	return (ft_strlen(s));
 }
