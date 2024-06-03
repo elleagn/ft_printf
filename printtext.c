@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_ftprintf.c                                    :+:      :+:    :+:   */
+/*   printtext.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elleagn <elleagn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gozon <gozon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/30 09:36:54 by elleagn           #+#    #+#             */
-/*   Updated: 2024/05/30 12:53:27 by elleagn          ###   ########.fr       */
+/*   Created: 2024/05/31 06:37:55 by gozon             #+#    #+#             */
+/*   Updated: 2024/06/03 06:45:00 by gozon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	main(void)
+int	ft_printchar(int c)
 {
-	ft_printf("I can print %c%cars !\n", 'c', 'h');
-	ft_printf("And I can print %s too !", "strings");
-	return (0);
+	ft_putchar_fd(c, 1);
+	return (1);
+}
+
+int	ft_printstring(char *s)
+{
+	int	i;
+
+	if (!s)
+		return (ft_printstring("(null)"));
+	i = 0;
+	while (s[i])
+	{
+		ft_putchar_fd(s[i], 1);
+		i++;
+	}
+	return (ft_strlen(s));
 }

@@ -3,53 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elleagn <elleagn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gozon <gozon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:28:04 by elleagn           #+#    #+#             */
-/*   Updated: 2024/05/30 13:06:17 by elleagn          ###   ########.fr       */
+/*   Updated: 2024/06/03 06:43:11 by gozon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_printchar(int c)
-{
-	ft_putchar_fd(c, 1);
-	return (1);
-}
-
-int	ft_printstring(char *s)
-{
-	while (*s)
-	{
-		ft_putchar_fd(*s, 1);
-		s++;
-	}
-	return (ft_strlen(s));
-}
-
-int	ft_printnbr(unsigned long int n, int size, char *base)
-{
-	int	count;
-
-	if (n < size)
-	{
-		ft_putchar_fd(base[n], 1);
-		return (1);
-	}
-	else
-	{
-		count = 1 + ft_printnbr(n / size, size, base);
-		ft_putchar_fd(base[n % size], 1);
-	}
-}
+#include <stdio.h>
 
 int	ft_printvar(char c, va_list *args)
 {
+	if (c == '%')
+		return (ft_printchar('%'));
 	if (c == 'c')
 		return (ft_printchar(va_arg(*args, int)));
 	if (c == 's')
 		return (ft_printstring(va_arg(*args, char *)));
+	if (c == 'p')
+		return (ft_printptr(va_arg(*args, int *)));
+	if (c == 'i' || c == 'd')
+		return (ft_printnbr(va_arg(*args, int), 10, "0123456789"));
+	if (c == 'u')
+		return (ft_printul(va_arg(*args, unsigned), 10, "0123456789"));
+	if (c == 'x')
+		return (ft_printul((unsigned)va_arg(*args, int), \
+			16, "0123456789abcdef"));
+	if (c == 'X')
+		return (ft_printul((unsigned)va_arg(*args, int), \
+			16, "0123456789ABCDEF"));
 	return (0);
 }
 
@@ -59,6 +42,8 @@ int	ft_printf(const char *s, ...)
 	int		i;
 	int		printnbr;
 
+	if (s == 0)
+		return (-1);
 	i = 0;
 	printnbr = 0;
 	va_start(arg_ptr, s);
@@ -75,10 +60,4 @@ int	ft_printf(const char *s, ...)
 	}
 	va_end(arg_ptr);
 	return (printnbr);
-}
-
-int main(void)
-{
-	ft_printnbr(1156, 10, "0123456789");
-	return (0);
 }
